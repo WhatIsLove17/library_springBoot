@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<h1 th:text="'Книга №' + ${book.getId()}"></h1>
+<div>
+    <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
+</div>
+
+<div th:if="${book.getOwner() == null}">
+    <b>Эта книга свободна. Кому её назначить?</b>
+    <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}">
+        <label for="userId">Выберите человека</label>
+        <select th:object="${book}" th:field="*{owner}" id="userId">
+            <option th:each="person : ${persons}" th:value="${person}" th:text="${person.getName()}"></option>
+        </select>
+        <input type="submit" value="Назначить книгу">
+    </form>
+</div>
+<div th:unless="${book.getOwner() == null}">
+    <label for="toFree" th:text="${'Книга сейчас у: ' + person.getName()}"></label><br/>
+    <form id="toFree" th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}">
+        <input type="submit" value="Освободить книгу"/>
+    </form>
+</div>
+<hr/>
+<br/>
+<form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+    <input type="submit" value="Редактировать книгу"/>
+</form>
+<br/>
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+    <input type="submit" value="Удалить книгу"/>
+</form>
+</body>
+</html>
