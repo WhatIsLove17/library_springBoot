@@ -34,6 +34,10 @@ public class PeopleService {
         return peopleRepository.findByPersonBooks(book);
     }
 
+    public Person findByEmail(String email){
+        return peopleRepository.findByEmail(email);
+    }
+
     @Transactional
     public void save(Person person){
         person.setCreatedAt(new Date());

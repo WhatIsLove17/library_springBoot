@@ -14,7 +14,7 @@
     <b>Эта книга свободна. Кому её назначить?</b>
     <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}">
         <label for="userId">Выберите человека</label>
-        <select th:object="${book}" th:field="*{owner}" id="userId">
+        <select id="userId">
             <option th:each="person : ${persons}" th:value="${person}" th:text="${person.getName()}"></option>
         </select>
         <input type="submit" value="Назначить книгу">

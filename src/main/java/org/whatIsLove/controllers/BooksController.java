@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.whatIsLove.models.Book;
+import org.whatIsLove.models.Person;
 import org.whatIsLove.services.BooksService;
 import org.whatIsLove.services.PeopleService;
 
@@ -80,16 +81,16 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}")
-    public String updateBook(@ModelAttribute("book") Book book, @PathVariable("id") int id,
-                             BindingResult bindingResult) {
+    public String updateBook(@ModelAttribute("book") Book book, @ModelAttribute("owner") Person person,
+                             @PathVariable("id") int id, BindingResult bindingResult) {
         Book recievedBook = booksService.findOne(id);
-        if (book.getOwner() == null) {
+        if (person == null) {
             recievedBook.setOwner(null);
             booksService.update(id, recievedBook);
         } else {
             if (bindingResult.hasErrors())
                 return "books/edit";
-            book.setOwner(recievedBook.getOwner());
+            book.setOwner(peopleService.findOne(person.getId()));
             booksService.update(id, book);
         }
         return "redirect:/books/" + book.getId();

@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Создание нового читателя:</h1>
-<form th:method="POST" th:action="@{/people}" th:object="${person}">
+<h1>Регистрация нового читателя:</h1>
+<form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
     <p>
         <label for="name">Введите ФИО: </label>
         <input type="text" th:field="*{name}" id="name">
@@ -14,7 +14,7 @@
     </p>
     <p>
         <label for="age">Введите дату рождения: </label>
-        <input type="number" th:field="*{birthDate}" id="age">
+        <input type="date" th:field="*{birthDate}" id="age">
     <div style="color: indianred" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Error</div>
     </p>
     <p>
@@ -26,6 +26,11 @@
         <label for="address">Введите адрес: </label>
         <input type="text" th:field="*{address}" id="address">
     <div style="color: indianred" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Error</div>
+    </p>
+    <p>
+        <label for="address">Введите пароль: </label>
+        <input type="password" th:field="*{password}" id="password">
+    <div style="color: indianred" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
     </p>
     <br/>
     <input type="submit" value="Создать нового читателя"/>
