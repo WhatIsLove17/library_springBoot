@@ -1,6 +1,7 @@
 package org.whatIsLove.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.whatIsLove.models.Book;
@@ -16,10 +17,13 @@ public class PeopleService {
 
     private final PeopleRepository peopleRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public PeopleService(PeopleRepository peopleRepository) {
+    public PeopleService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
         this.peopleRepository = peopleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Person> findAll(){
@@ -40,6 +44,7 @@ public class PeopleService {
 
     @Transactional
     public void save(Person person){
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setCreatedAt(new Date());
         peopleRepository.save(person);
     }

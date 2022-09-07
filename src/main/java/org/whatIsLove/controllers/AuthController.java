@@ -2,6 +2,7 @@ package org.whatIsLove.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class AuthController {
     private final PeopleService peopleService;
 
     private final PersonValidator personValidator;
+
 
     @Autowired
     public AuthController(PeopleService peopleService, PersonValidator personValidator) {
