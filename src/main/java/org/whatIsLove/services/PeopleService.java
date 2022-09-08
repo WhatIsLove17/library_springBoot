@@ -45,6 +45,7 @@ public class PeopleService {
     @Transactional
     public void save(Person person){
         person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRole("ROLE_USER");
         person.setCreatedAt(new Date());
         peopleRepository.save(person);
     }

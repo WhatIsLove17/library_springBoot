@@ -49,6 +49,9 @@ public class Person {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
     private List<Book> personBooks;
 
+    @Column(name = "role")
+    private String role;
+
     public Person(){}
 
     public Person(String name, Date birthDate, Date createdAt, String email, String address) {
@@ -57,6 +60,14 @@ public class Person {
         this.createdAt = createdAt;
         this.email = email;
         this.address = address;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public List<Book> getPersonBooks() {
